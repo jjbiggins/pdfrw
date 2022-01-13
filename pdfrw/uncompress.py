@@ -60,10 +60,10 @@ def uncompress(mylist, leave_raw=False, warnings=set(),
                         parms.update(x)
                 if parms:
                     predictor = int(parms.Predictor or 1)
-                    columns = int(parms.Columns or 1)
-                    colors = int(parms.Colors or 1)
-                    bpc = int(parms.BitsPerComponent or 8)
                     if 10 <= predictor <= 15:
+                        columns = int(parms.Columns or 1)
+                        colors = int(parms.Colors or 1)
+                        bpc = int(parms.BitsPerComponent or 8)
                         data, error = flate_png(data, predictor, columns, colors, bpc)
                     elif predictor != 1:
                         error = ('Unsupported flatedecode predictor %s' %

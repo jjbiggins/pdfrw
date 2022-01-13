@@ -27,10 +27,7 @@ def make_canonical(trailer):
         visited.add(objid)
         obj.indirect = True
         if isinstance(obj, (PdfArray, PdfDict)):
-            if isinstance(obj, PdfArray):
-                workitems += obj
-            else:
-                workitems += obj.values()
+            workitems += obj if isinstance(obj, PdfArray) else obj.values()
     return trailer
 
 with open('expected.txt', 'rb') as f:

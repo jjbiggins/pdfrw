@@ -31,11 +31,7 @@ def find_objects(source, valid_types=(PdfName.XObject, None),
     container = (PdfDict, PdfArray)
 
     # Allow passing a list of pages, or a dict
-    if isinstance(source, PdfDict):
-        source = [source]
-    else:
-        source = list(source)
-
+    source = [source] if isinstance(source, PdfDict) else list(source)
     visited = set()
     source.reverse()
     while source:
@@ -132,6 +128,7 @@ def page_per_xobj(xobj_iter, width=8.5 * 72, margin=0.0 * 72,
     if isinstance(xobj_iter, (list, dict)):
         xobj_iter = find_objects(xobj_iter)
     for obj in xobj_iter:
-        if not ignore(obj):
-            if not image_only or obj.Subtype == PdfName.IMage:
-                yield wrap_object(obj, width, margin)
+        if not ignore(obj) and (
+            not image_only or obj.Subtype == PdfName.IMage
+        ):
+            yield wrap_object(obj, width, margin)

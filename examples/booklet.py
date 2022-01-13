@@ -38,11 +38,7 @@ inpfn = args.input
 outfn = 'booklet.' + os.path.basename(inpfn)
 ipages = PdfReader(inpfn).pages
 
-if args.padding:
-    pad_to = 4
-else:
-    pad_to = 2
-
+pad_to = 4 if args.padding else 2
 # Make sure we have a correct number of sides
 ipages += [None]*(-len(ipages)%pad_to)
 

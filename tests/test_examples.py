@@ -27,6 +27,7 @@ In order to use them:
 
 
 '''
+
 import sys
 import os
 import hashlib
@@ -49,7 +50,7 @@ dstdir = os.path.join(expected.result_dir, 'examples')
 hashfile = os.path.join(expected.result_dir, 'hashes.txt')
 
 lookup = static_pdfs.pdffiles[0]
-lookup = dict((os.path.basename(x)[:-4], x) for x in lookup)
+lookup = {os.path.basename(x)[:-4]: x for x in lookup}
 
 
 class TestOnePdf(unittest.TestCase):

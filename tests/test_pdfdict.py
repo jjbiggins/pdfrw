@@ -24,7 +24,7 @@ class TestPdfDicts(unittest.TestCase):
         io.value = 42
         d = PdfDict()
         d.Name = io
-        test, = (x for x in dict.values(d))
+        test, = iter(dict.values(d))
         self.assertEqual(test, io)
         v = d['/Name']
         self.assertEqual(v, io.value)

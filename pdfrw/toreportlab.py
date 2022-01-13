@@ -118,10 +118,7 @@ def makerl_recurse(rldoc, pdfobj):
         if value is not None:
             return value[0]
     if isinstance(pdfobj, PdfDict):
-        if pdfobj.stream is not None:
-            func = _makestream
-        else:
-            func = _makedict
+        func = _makestream if pdfobj.stream is not None else _makedict
         if docdict is None:
             pdfobj.private.derived_rl_obj = {}
     elif isinstance(pdfobj, PdfArray):
