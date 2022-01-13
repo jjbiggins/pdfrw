@@ -9,7 +9,7 @@ import expected
 import static_pdfs
 
 source_pdfs = static_pdfs.pdffiles[0]
-source_pdfs = dict((os.path.basename(x), x) for x in source_pdfs)
+source_pdfs = {os.path.basename(x): x for x in source_pdfs}
 
 result_dir = expected.result_dir
 

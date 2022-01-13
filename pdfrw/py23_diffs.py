@@ -14,9 +14,7 @@ try:
 except NameError:
 
     def convert_load(s):
-        if isinstance(s, bytes):
-            return s.decode('Latin-1')
-        return s
+        return s.decode('Latin-1') if isinstance(s, bytes) else s
 
     def convert_store(s):
         return s.encode('Latin-1')

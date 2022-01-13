@@ -323,8 +323,8 @@ class FontInfo(object):
             assert x[0] == '<' and x[-1] == '>' and len(x) in (4, 6), x
             i = int(x[1:-1], 16)
             info2.append(i)
-        self.remap = dict((x, chr(y)) for (x, y) in
-                          zip(info2[::2], info2[1::2])).get
+        self.remap = {x: chr(y) for (x, y) in
+                              zip(info2[::2], info2[1::2])}.get
         self.twobyte = len(info[0]) > 4
 
 #############################################################################
@@ -389,8 +389,8 @@ class _ParseClass(object):
         self.canv = canvas
         self.gpath = None
         self.tpath = None
-        self.fontdict = dict((x, FontInfo(y)) for
-                             (x, y) in page.Resources.Font.items())
+        self.fontdict = {x: FontInfo(y) for
+                                 (x, y) in page.Resources.Font.items()}
 
         for token in self.tokens:
             info = dispatch(token)
@@ -415,7 +415,7 @@ class _ParseClass(object):
             try:
                 params[:] = [x(y) for (x, y) in paraminfo]
             except:
-                for i, (x, y) in enumerate(paraminfo):
+                for x, y in paraminfo:
                     try:
                         x(y)
                     except:

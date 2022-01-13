@@ -85,21 +85,20 @@ def create_toc():
 
 def create_pdf(filename, pdf_template_filename):
     """Create the pdf, with all the contents"""
-    pdf_report = open(filename, "wb")
-    document = MyDocTemplate(pdf_report)
-    templates = [MyTemplate(pdf_template_filename, name='background')]
-    document.addPageTemplates(templates)
+    with open(filename, "wb") as pdf_report:
+        document = MyDocTemplate(pdf_report)
+        templates = [MyTemplate(pdf_template_filename, name='background')]
+        document.addPageTemplates(templates)
 
-    styles = getSampleStyleSheet()
-    elements = [NextPageTemplate('background')]
-    elements.extend(create_toc())
+        styles = getSampleStyleSheet()
+        elements = [NextPageTemplate('background')]
+        elements.extend(create_toc())
 
-    # Dummy content (hello world x 200)
-    for i in range(200):
-        elements.append(Paragraph("Hello World" + str(i), styles['Heading1']))
+        # Dummy content (hello world x 200)
+        for i in range(200):
+            elements.append(Paragraph("Hello World" + str(i), styles['Heading1']))
 
-    document.multiBuild(elements)
-    pdf_report.close()
+        document.multiBuild(elements)
 
 
 if __name__ == '__main__':

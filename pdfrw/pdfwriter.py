@@ -106,7 +106,7 @@ def FormatObjects(f, trailer, version='1.3', compress=True, killobj=(),
 
     def format_array(myarray, formatter):
         # Format array data into semi-readable ASCII
-        if sum([len(x) for x in myarray]) <= 70:
+        if sum(len(x) for x in myarray) <= 70:
             return formatter % space_join(myarray)
         return format_big(myarray, formatter)
 
@@ -377,9 +377,6 @@ class PdfWriter(object):
             obj.indirect = False
             if isinstance(obj, (PdfArray, PdfDict)):
                 obj.indirect = True
-                if isinstance(obj, PdfArray):
-                    workitems += obj
-                else:
-                    workitems += obj.values()
+                workitems += obj if isinstance(obj, PdfArray) else obj.values()
 
     replaceable = set(vars())

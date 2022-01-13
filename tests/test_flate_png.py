@@ -346,14 +346,8 @@ class TestFlatePNG(unittest.TestCase):
             logging.error("expected: %r" % len(expected))
             logging.error("data: %r" % len(data))
 
-            assert color_type in [
-                        0, # Grayscale (Y)
-                        2, # Truecolor (RGB)
-                        # 3 Indexed is not supported (Palette)
-                        4, # Grayscale with alpha (YA)
-                        6, # Truecolor with alpha (RGBA)
-                    ]
-            assert filter in [0, 1, 2, 3, 4]
+            assert color_type in {0, 2, 4, 6}
+            assert filter in {0, 1, 2, 3, 4}
             assert channels * bit_depth == pixel_depth
             assert (pixel_depth // 8) * width == rowbytes
             assert 0 == pixel_depth % 8 # can't support pixels with bit_depth < 8

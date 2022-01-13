@@ -505,7 +505,7 @@ class PdfReader(PdfDict):
         private = self.private
         crypt_filters = self.crypt_filters
         version = int(trailer.Encrypt.V or 0)
-        if version in (1, 2):
+        if version in {1, 2}:
             crypt_filter = crypt.RC4CryptFilter(key)
             private.stream_crypt_filter = crypt_filter
             private.string_crypt_filter = crypt_filter
@@ -565,9 +565,8 @@ class PdfReader(PdfDict):
                     fdata = fname.read()
                 else:
                     try:
-                        f = open(fname, 'rb')
-                        fdata = f.read()
-                        f.close()
+                        with open(fname, 'rb') as f:
+                            fdata = f.read()
                     except IOError:
                         raise PdfParseError('Could not read PDF file %s' %
                                             fname)

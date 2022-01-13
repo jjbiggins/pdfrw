@@ -349,7 +349,7 @@ class PdfString(str):
         unescape_func = re.compile(unescape_pattern, re.DOTALL).split
         cls.unescape_func = unescape_func
 
-        unescape_dict = dict(((chr(x), chr(x)) for x in range(0x100)))
+        unescape_dict = {chr(x): chr(x) for x in range(0x100)}
         unescape_dict.update(zip('nrtbf', '\n\r\t\b\f'))
         unescape_dict['\r'] = ''
         unescape_dict['\n'] = ''

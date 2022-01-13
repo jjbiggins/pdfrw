@@ -138,8 +138,8 @@ def getrects(inheritable, pageinfo, rotation):
         the desired pageinfo rectangle, return the page's
         media box and the calculated boundary (clip) box.
     '''
-    mbox = tuple([float(x) for x in inheritable.MediaBox])
-    cbox = tuple([float(x) for x in (inheritable.CropBox or mbox)])
+    mbox = tuple(float(x) for x in inheritable.MediaBox)
+    cbox = tuple(float(x) for x in (inheritable.CropBox or mbox))
     vrect = pageinfo.viewrect
     if vrect is not None:
         # Rotate the media box to match what the user sees,
@@ -193,7 +193,7 @@ def _build_cache(contents, allow_compressed):
     # objects, we try to decompress them, and fail if we cannot do that.
 
     if not allow_compressed or len(array) > 1:
-        keys = set(x[0] for cdict in array for x in iteritems(cdict))
+        keys = {x[0] for cdict in array for x in iteritems(cdict)}
         was_compressed = len(keys) > 1
         if was_compressed:
             # Make copies of the objects before we uncompress them.
@@ -202,7 +202,7 @@ def _build_cache(contents, allow_compressed):
                 raise PdfNotImplementedError(
                     'Xobjects with these compression parameters not supported: %s' %
                     keys)
-    
+
     xobj_copy = PdfDict(array[0])
     xobj_copy.private.xobj_cachedict = {}
     private.xobj_copy = xobj_copy
